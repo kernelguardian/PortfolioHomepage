@@ -48,11 +48,12 @@
                 subject,
                 message
             };
-            console.log("hey", formData)
+            // console.log("hey", formData)
 
             try {
-                const response = await fetch("https://badge-counter.vercel.app/api/formdata", {
+                const response = await fetch("https://badger.kernelguardian.com/api/formdata", {
                     method: "POST",
+                    mode: "no-cors",
                     headers: {
                         "Content-Type": "application/json"
                     },
