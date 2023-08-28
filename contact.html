@@ -30,6 +30,54 @@
     gtag('config', 'G-FF3KQ91EK7');
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const fullName = document.querySelector("#full-name").value;
+            const email = document.querySelector("#email").value;
+            const subject = document.querySelector("#subject").value;
+            const message = document.querySelector("#message").value;
+
+            const formData = {
+                fullName,
+                email,
+                subject,
+                message
+            };
+            console.log("hey", formData)
+
+            try {
+                const response = await fetch("https://badge-counter.vercel.app/api/formdata", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    // Handle success response here
+                    console.log("Success:", responseData);
+
+                    // Optionally, clear form fields after successful submission
+                    form.reset();
+                } else {
+                    // Handle error response here
+                    console.error("Error:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+
+</script>
+
 <body>
 
     <main class="main-aboutpage">
