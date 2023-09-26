@@ -31,7 +31,7 @@ If you're interested in setting up a similar portfolio website:
 
 ## Contact
 
-If you have any questions or would like to reach out, feel free to contact me at [your email address].
+If you have any questions or would like to reach out, feel free to contact me at hello@kernelguardian.com.
 
 Thank you for visiting my portfolio repository!
 
