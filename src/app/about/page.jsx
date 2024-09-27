@@ -63,10 +63,10 @@ export default function About() {
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
             <p>
-              I’ve loved making things for as long as I can remember, and wrote
-              my first program when I was 6 years old, just two weeks after my
-              mom brought home the brand new Macintosh LC 550 that I taught
-              myself to type on.
+              .. I’ve loved making things for as long as I can remember, and
+              wrote my first program when I was 6 years old, just two weeks
+              after my mom brought home the brand new Macintosh LC 550 that I
+              taught myself to type on.
             </p>
             <p>
               The only thing I loved more than computers as a kid was space.
