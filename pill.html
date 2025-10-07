@@ -5,7 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Asish Binu Mathew - Personal Portfolio</title>
-
+		<meta
+			property="og:image"
+			content="https://asish.uk/assets/images/profile.jpeg"
+		/>
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -87,22 +90,16 @@
 			<!-- Project Details -->
 			<section class="project-details-wrap">
 				<div class="container text-center" data-aos="zoom-in">
-					<h2 class="section-heading mb-4">
-						Comprehensive Study: Romans to Revelation
-					</h2>
-
-					<!-- Responsive PDF Wrapper -->
-					<div
-						class="shadow-box pdf-viewer-wrapper"
-						style="border-radius: 16px"
-					>
+					<div class="shadow-box" style="border-radius: 16px; overflow: hidden">
+						<!-- Embedded PDF -->
 						<iframe
 							src="./pdf/Comprehensive Study Romans - Revelation Black.pdf"
+							width="100%"
+							height="900px"
+							style="border: none"
 							title="Comprehensive Study Romans to Revelation PDF"
-							class="pdf-frame"
 						></iframe>
 					</div>
-
 					<p class="mt-3">
 						If the document doesn’t load,
 						<a
@@ -114,40 +111,6 @@
 					</p>
 				</div>
 			</section>
-
-			<style>
-				/* PDF container adapts to screen size */
-				.pdf-viewer-wrapper {
-					position: relative;
-					width: 100%;
-					padding-top: 130%; /* taller on mobile for scrollability */
-					background: #f8f9fa;
-					overflow: hidden;
-				}
-
-				/* PDF iframe scales responsively */
-				.pdf-viewer-wrapper .pdf-frame {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					border: none;
-				}
-
-				/* Make it shorter on larger screens */
-				@media (min-width: 768px) {
-					.pdf-viewer-wrapper {
-						padding-top: 80%;
-					}
-				}
-
-				@media (min-width: 1200px) {
-					.pdf-viewer-wrapper {
-						padding-top: 65%;
-					}
-				}
-			</style>
 
 			<!-- Footer -->
 			<footer class="footer-area">
