@@ -70,9 +70,7 @@ export default function SwiggyView() {
 
   const fetchMessages = useCallback(async () => {
     try {
-      const res = await fetch('/api/swiggy/messages', {
-        headers: { 'x-password': password },
-      })
+      const res = await fetch('/api/swiggy/messages')
       if (!res.ok) {
         if (res.status === 401) {
           setAuthenticated(false)
@@ -85,7 +83,7 @@ export default function SwiggyView() {
     } catch {
       // silently retry on next interval
     }
-  }, [password])
+  }, [])
 
   useEffect(() => {
     if (!authenticated) return
@@ -101,17 +99,32 @@ export default function SwiggyView() {
     return () => clearInterval(interval)
   }, [authenticated, messages.length])
 
+  // Check if already authenticated via cookie on mount
+  useEffect(() => {
+    fetch('/api/swiggy/messages')
+      .then((res) => {
+        if (res.ok) {
+          setAuthenticated(true)
+          return res.json()
+        }
+      })
+      .then((data) => {
+        if (data) setMessages(data.messages)
+      })
+      .catch(() => {})
+  }, [])
+
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('/api/swiggy/messages', {
-        headers: { 'x-password': password },
+      const res = await fetch('/api/swiggy/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
       })
       if (res.ok) {
-        const data = await res.json()
-        setMessages(data.messages)
         setAuthenticated(true)
       } else {
         setError('Wrong password')
