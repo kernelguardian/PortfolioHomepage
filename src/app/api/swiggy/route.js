@@ -9,29 +9,16 @@ export async function POST(request) {
     if (contentType.includes('application/json')) {
       const body = await request.json()
       // Accept { "payload": "..." } or { "payload": 123 } or just a raw string
-      if (typeof body === 'string') {
-        message = body
-      } else if (body && body.payload != null) {
-        message = typeof body.payload === 'string' ? body.payload : JSON.stringify(body.payload)
-      } else if (body && typeof body === 'object') {
-        message = JSON.stringify(body)
-      }
-    } else {
-      // Plain text or any other content type — treat body as the message
-      message = await request.text()
+      console.log('Received JSON body:', body)
+      console.log(body.payload)
+
+      return NextResponse.json({ success: true })
     }
-
-    if (!message || message.trim() === '') {
-      return NextResponse.json(
-        { error: 'Empty payload. Send JSON {"payload": "..."} or plain text body.' },
-        { status: 400 },
-      )
-    }
-
-    addMessage(message.trim())
-
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Could not parse request body' }, { status: 400 })
+  } catch (error) {
+    console.error('Error processing request:', error)
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 },
+    )
   }
 }
