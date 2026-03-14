@@ -3,20 +3,35 @@ import { addMessage } from '@/lib/swiggyStore'
 
 export async function POST(request) {
   try {
-    const body = await request.json()
-    const { payload } = body
+    const contentType = request.headers.get('content-type') || ''
+    let message
 
-    if (!payload || typeof payload !== 'string') {
+    if (contentType.includes('application/json')) {
+      const body = await request.json()
+      // Accept { "payload": "..." } or { "payload": 123 } or just a raw string
+      if (typeof body === 'string') {
+        message = body
+      } else if (body && body.payload != null) {
+        message = typeof body.payload === 'string' ? body.payload : JSON.stringify(body.payload)
+      } else if (body && typeof body === 'object') {
+        message = JSON.stringify(body)
+      }
+    } else {
+      // Plain text or any other content type — treat body as the message
+      message = await request.text()
+    }
+
+    if (!message || message.trim() === '') {
       return NextResponse.json(
-        { error: 'payload is required and must be a string' },
+        { error: 'Empty payload. Send JSON {"payload": "..."} or plain text body.' },
         { status: 400 },
       )
     }
 
-    addMessage(payload)
+    addMessage(message.trim())
 
     return NextResponse.json({ success: true })
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+    return NextResponse.json({ error: 'Could not parse request body' }, { status: 400 })
   }
 }
