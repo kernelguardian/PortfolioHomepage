@@ -4,11 +4,9 @@ import { addMessage } from '@/lib/swiggyStore'
 export async function POST(request) {
   try {
     const contentType = request.headers.get('content-type') || ''
-    let message
 
     if (contentType.includes('application/json')) {
       const body = await request.json()
-      // Accept { "payload": "..." } or { "payload": 123 } or just a raw string
       console.log('Received JSON body:', body)
       console.log(body.payload)
 
